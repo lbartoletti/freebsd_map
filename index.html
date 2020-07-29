@@ -1,0 +1,36 @@
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <style>
+         html { height: 100% }
+         body { height: 100%; margin: 0; padding: 0;}
+         #map{ height: 100% }
+      </style>
+      <link rel="stylesheet" href="leaflet.css" />
+      <script src="leaflet.js"></script>
+      <script type="text/javascript" src="leaflet.ajax.js"></script>
+      <title>FreeBSD developpers map</title>
+   </head>
+   <body>
+      <div id="map"></div>
+      <script type="text/javascript">
+         var map = L.map('map', {
+                          center: [20.80, 12.48],
+                          zoom: 3 });
+           
+             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'}).addTo(map);
+             
+         function popUp(f,l){
+             var out = [];
+             if (f.properties){
+                 for(key in f.properties){
+                     out.push(key+": "+f.properties[key]);
+                 }
+                 l.bindPopup(out.join("<br />"));
+             }
+         }
+             var geojsonLayer = new L.GeoJSON.AJAX("freebsd_committers.geojson",{onEachFeature:popUp}).addTo(map);
+      </script>
+   </body>
+</html>
+
