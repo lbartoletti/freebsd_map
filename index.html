@@ -1,3 +1,5 @@
+
+
 <html>
    <head>
       <meta charset="UTF-8">
@@ -20,25 +22,16 @@
            
              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'}).addTo(map);
              
-       function pointToLayer(feature, latlng) {
-    var out = [];
+         function popUp(f,l){
+             var out = [];
              if (f.properties){
                  for(key in f.properties){
                      out.push(key+": "+f.properties[key]);
                  }
                  l.bindPopup(out.join("<br />"));
              }
-        return L.circleMarker(latlng, geojsonMarkerOptions);
-    }
-         var geojsonMarkerOptions = {
-    radius: 8,
-    fillColor: "#ff7800",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
-             var geojsonLayer = new L.GeoJSON.AJAX("freebsd_committers.geojson",{onEachFeature:pointToLayer}).addTo(map);
+         }
+             var geojsonLayer = new L.GeoJSON.AJAX("freebsd_committers.geojson",{onEachFeature:popUp}).addTo(map);
       </script>
    </body>
 </html>
